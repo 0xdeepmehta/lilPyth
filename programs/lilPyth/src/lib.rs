@@ -17,7 +17,7 @@ pub mod lil_pyth {
         // Sanity checks for pyth_price account, 
         // Validation on pyth_poduct account is done by pyth_client itslef, wen we invoke load_product(), load_price()
         require!(product_account.px_acc.is_valid(), LilError::InvalidPriceAccount);
-        require_keys_neq!(pyth_price_pubkey, ctx.accounts.pyth_price.key(), LilError::InvalidPriceAccount);
+        require_keys_eq!(pyth_price_pubkey, ctx.accounts.pyth_price.key(), LilError::InvalidPriceAccount);
 
         let pyth_price_data = &ctx.accounts.pyth_price.try_borrow_data()?;
         let price_account = *load_price(pyth_price_data).unwrap();
